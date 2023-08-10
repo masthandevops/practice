@@ -1,0 +1,197 @@
+ow to remove line numbers?
+  :set nonu
+
+  how to search the word inside the file?
+  :/jeevan
+
+  i want go to 10 line ?
+  :10
+
+
+  i want to delete particular line inside file?
+  :12d
+
+  i want to copy 2nd line and paste it in 10 line?
+  :1co10            
+  :2co13
+
+
+
+a=30
+
+$a
+
+
+
+
+
+
+**2.umask: umask is nothing but a user mask, the main purpose of umask is to give better security for files and directories.
+-------           
+         *it is going to remove write permission to group and others.
+
+
+  Types of permissions:  read ( r) , write (w ) , execute ( x)
+                             4            2          1
+
+
+category of users:
+-------------------
+
+     Owner , group , others
+      rwx     rwx     rwx
+       7       7        7
+       7       0        0
+
+                         r-4
+                         w-2
+                         x-1
+
+                      full permissions --- 777
+                      umask value      --- 022
+
+
+
+
+for Files:
+===========
+              
+             file full permission :       666 
+                     umask         :    - 022
+                                         ======
+             default file permission      644      -- owner : read and write , group - read , others - read
+
+For Directories:
+==================
+                                         ======
+
+             directories full permission: 777
+                          umaks         :-022
+                                        =======
+            default directory permission: 755      -- owner : read,write,execute , group - read+execute , others - read+execute
+                                       ========== 
+
+
+
+
+
+
+
+[root@ip-172-31-34-218 ~]# ll
+total 4
+drwxr-xr-x 4 root root 32 Dec  8 04:39 Desktop
+
+-rw-r--r-- 1 root root  0 Dec  9 04:44 file1
+
+
+
+
+**how to check the umask value?
+-------------------------------
+
+  syntax: umask
+
+**how to change the umask value ?
+---------------------------------
+
+  vi /etc/bashrc 
+
+
+i need to remove read and write permission to files?
+
+vi 
+
+
+
+How to change file and directory permissions?
+---------------------------------------------
+By using 'chmod' command.
+
+
+
+
+
+
+3.chmod: if you want to set custom permission to  file and directory we are going this command.
+-------
+  default file permission is 644 i don't wnat 644 i want 777 ? 
+
+We can set permissions in two ways:
+  1.Absolute way
+  2.Symbolic way
+
+
+  1.Absolute way:
+  ================
+ 
+  *I want to set full permissions to owner and no permissions group and other.
+ 
+  syntax: # chmod 700 <filename>
+
+  *read for group and other, owner need full permission.
+          
+          # chmod 744 <filename>
+  *Read and write permissions to all.  r = 4 , w =2 ,x-1
+
+          # chmod 666 <filename>
+  *Only need read and write permission to owner and group.
+          
+          # chmod 660 <filename>
+            chmod 660 <dirname>
+
+
+
+
+ 2. Symbolic way way :
+  ================
+
+owner - u
+group- g
+others - o
+
+         #chmod u+rw,g+r,o-w <filename>
+
+
+
+
+
+**4.chown (change owner) : by using this command we can chnage owner for files and directories.
+----------------------
+
+   syntax: # chown jeevan <filename/dir name>    ------  only for one directory 
+    
+  to change owner name to parent and child directory :
+ =================================================
+    
+  Syntax: # chown -R jeevan file or dir name 
+
+
+
+5.chgrp : by using this command we can change group for files and directories.
+-------
+
+  syntax: #chgrp DevOps Test123
+
+
+[root@ip-172-31-34-218 Test123]# ll
+total 0
+drwxr-xr-x 2 jeevan DevOps 6 Dec 10 04:12 Test4
+drwxr-xr-x 2 jeevan Testing 6 Dec 10 04:12 Test5
+
+
+****
+How to change owner and group name in single command?
+-----------------------------------------------------
+
+
+# chown -R <Ownername>:<Group name> <file or dir name>
+
+chown -R jeevan:DevOps text.txt 
+
+
+
+stickybit:
+==========
+
+1.The main purpose of stickybit is to provide better security for files and directories.
+2.If you give write permission to others by using chmod then others can modify data but they can't delete the file or directory.
